@@ -5,14 +5,22 @@ FROM python:3
 # Allow statements and log messages to immediately appear in the Knative logs
 ENV PYTHONUNBUFFERED True
 
+# Install dependencies for wkhtmltopdf
+RUN apt-get update && apt-get install -y \
+    libxrender1 \
+    libfontconfig1 \
+    wkhtmltopdf && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Expose the port
 EXPOSE 8080
 
-# Copy local code to the container image.
+# Set the working directory in the container
 ENV APP_HOME /app
 WORKDIR $APP_HOME
-COPY . ./
+COPY . ./ 
 
-# Install production dependencies.
+# Install Python dependencies
 RUN pip install -r requirements.txt
 
 # Run the web service on container startup. Here we use the gunicorn
