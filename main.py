@@ -13,7 +13,7 @@ env = Environment(loader=FileSystemLoader("."), autoescape=select_autoescape())
 template = env.get_template("invoice_template.html")
 
 # Define path to wkhtmltopdf executable
-path_to_wkhtmltopdf = r"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"  # Update the path accordingly
+path_to_wkhtmltopdf = '/usr/bin/wkhtmltopdf'   # Update the path accordingly
 config = pdfkit.configuration(wkhtmltopdf=path_to_wkhtmltopdf)
 
 with st.form("template_form"):
